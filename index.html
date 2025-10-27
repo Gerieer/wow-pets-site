@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestros de Mascotas - Guía World of Warcraft</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero" id="inicio">
+        <nav class="navbar" aria-label="Menú principal">
+            <a class="logo" href="#inicio">Maestros de Mascotas</a>
+            <button class="navbar__toggle" aria-expanded="false" aria-controls="menu">
+                <span class="sr-only">Abrir menú</span>
+                ☰
+            </button>
+            <ul id="menu" class="navbar__links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#buscar">Buscar personaje</a></li>
+                <li><a href="#mascotas">Mascotas</a></li>
+                <li><a href="#batallas">Batallas</a></li>
+                <li><a href="#consejos">Consejos</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="hero__content">
+            <div class="hero__image" aria-hidden="true">
+                <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Portal oscuro con mascotas legendarias al frente]</div>
+            </div>
+            <div class="hero__text">
+                <h1>Domina el coleccionismo y las batallas de mascotas en Azeroth</h1>
+                <p>¡Bienvenido, aventurero! ¿Listo para descubrir todas las mascotas que World of Warcraft tiene para ti? Aquí podrás buscar tu propio personaje, explorar mascotas legendarias y aprender cómo convertirte en un maestro de las batallas de mascotas.</p>
+                <div class="hero__cta">
+                    <a class="button" href="#buscar">Busca tu personaje</a>
+                    <a class="button button--ghost" href="#mascotas">Explora mascotas</a>
+                </div>
+                <div class="hero__prompt">
+                    <p>Pregunta interactiva: <strong>¿Quieres encontrar una mascota específica o prefieres recibir sugerencias según tu colección actual?</strong></p>
+                    <div class="options">
+                        <button type="button" data-option="especifica">Buscar mascota concreta</button>
+                        <button type="button" data-option="sugerencias">Obtener sugerencias</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="buscar" class="section section--highlight">
+            <div class="section__header">
+                <h2>Buscar personaje</h2>
+                <p>Conecta tu colección de mascotas: localiza tu personaje, selecciona su reino y recupera la lista completa de mascotas vinculadas a tu cuenta oficial.</p>
+            </div>
+            <form class="search-form" aria-label="Formulario de búsqueda de personaje">
+                <div class="form-field">
+                    <label for="nombre">Nombre del personaje</label>
+                    <input id="nombre" name="nombre" type="text" placeholder="Ej. Elyndra" required>
+                    <small class="help">Consejo: respeta las mayúsculas y acentos exactamente como aparecen en el juego.</small>
+                </div>
+                <div class="form-field">
+                    <label for="reino">Reino</label>
+                    <input id="reino" name="reino" type="text" placeholder="Ej. Dun Modr" required>
+                    <small class="help">¿No recuerdas el reino? Abre el lanzador de WoW y fíjate en la pantalla de selección de personajes.</small>
+                </div>
+                <div class="form-field">
+                    <label for="region">Región</label>
+                    <select id="region" name="region" required>
+                        <option value="">Selecciona región</option>
+                        <option value="EU">EU</option>
+                        <option value="US">US</option>
+                        <option value="KR">KR</option>
+                        <option value="TW">TW</option>
+                    </select>
+                    <small class="help">La región determina el servidor oficial donde reside tu personaje.</small>
+                </div>
+                <div class="form-field form-field--actions">
+                    <button id="buscarPersonaje" type="submit">Buscar</button>
+                    <button id="limpiarFormulario" type="reset" class="button button--ghost">Limpiar</button>
+                </div>
+                <div class="form-guidance">
+                    <p>Instrucción interactiva: <strong>¿Deseas filtrar las mascotas obtenidas por rareza, expansión o tipo?</strong></p>
+                    <div class="options">
+                        <label><input type="checkbox" name="filtro" value="rareza"> Filtrar por rareza</label>
+                        <label><input type="checkbox" name="filtro" value="expansion"> Filtrar por expansión</label>
+                        <label><input type="checkbox" name="filtro" value="tipo"> Filtrar por tipo</label>
+                    </div>
+                </div>
+            </form>
+
+            <section class="results" aria-live="polite">
+                <h3>Ejemplo de resultados</h3>
+                <p>Has buscado: <strong>Elyndra</strong> - Reino: <strong>Dun Modr</strong> (EU)</p>
+                <div class="results__summary">
+                    <p>Total de mascotas reunidas: <strong>156</strong></p>
+                    <p>Huecos disponibles para nuevas mascotas: <strong>244</strong></p>
+                    <p>Última sincronización con la API oficial: <strong>26/10/2025 18:42 CET</strong></p>
+                </div>
+                <div class="results__filters">
+                    <p>¿Quieres refinar tu colección?</p>
+                    <div class="options">
+                        <button type="button">Mostrar sólo raras</button>
+                        <button type="button">Mascotas de Shadowlands</button>
+                        <button type="button">Tipo fuerte contra acuáticos</button>
+                    </div>
+                </div>
+                <div class="results__grid">
+                    <article class="pet-card">
+                        <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Mini Ragnaros lanzando lava]</div>
+                        <h4>Mini Ragnaros</h4>
+                        <p>Tipo elemental. Adora las batallas prolongadas con efectos de daño en el tiempo.</p>
+                        <p class="obten">Obtenida: Tienda oficial de Blizzard.</p>
+                        <p class="ventaja">Ventaja: Someten a las mascotas mecánicas con facilidad.</p>
+                    </article>
+                    <article class="pet-card">
+                        <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Zergling brillante con estandarte de la Horda]</div>
+                        <h4>Zergling Aplastante</h4>
+                        <p>Tipo bestia. Perfecta para combos agresivos con daño rápido.</p>
+                        <p class="obten">Obtenida: Promoción BlizzCon clásica.</p>
+                        <p class="ventaja">Ventaja: Contrarresta mascotas humanoides.</p>
+                    </article>
+                    <article class="pet-card">
+                        <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Mascota mecánica tipo araña del clan Gnomo]</div>
+                        <h4>Aracnobot Trucado</h4>
+                        <p>Tipo mecánico. Ideal para absorber daño y contraatacar.</p>
+                        <p class="obten">Obtenida: Ingeniería (profesión).</p>
+                        <p class="ventaja">Ventaja: Resiste a las habilidades elementales.</p>
+                    </article>
+                </div>
+            </section>
+        </section>
+
+        <section id="mascotas" class="section">
+            <div class="section__header">
+                <h2>Mascotas destacadas</h2>
+                <p>Explora una selección curada de mascotas imprescindibles con detalles sobre cómo conseguirlas y consejos para su entrenamiento.</p>
+            </div>
+            <div class="pet-list">
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Hatchling fosforescente en una rama]</div>
+                    <h3>Criadora Esmeralda</h3>
+                    <p>Tipo dragón. Especialista en regeneración y curas sostenidas.</p>
+                    <p class="obten">Cómo conseguirla: Botín raro en Valle de la Flor Eterna.</p>
+                    <p class="tips">Consejo: Alterna su habilidad de curación con ataques de cola para sorprender.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Pequeño múrloc con armadura de placas]</div>
+                    <h3>Múrloc Caballero</h3>
+                    <p>Tipo humanoide. Famoso por su habilidad de defensa y contraataque.</p>
+                    <p class="obten">Cómo conseguirla: Evento invernal, misión especial en Corona de Hielo.</p>
+                    <p class="tips">Consejo: Úsalo como ancla defensiva frente a bestias.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Fénix incandescente en vuelo]</div>
+                    <h3>Fénix de Fuego Solar</h3>
+                    <p>Tipo elemental. Combina daño explosivo con resurrección automática.</p>
+                    <p class="obten">Cómo conseguirla: Logro de mazmorra heroica en Bastión del Fuego Solar.</p>
+                    <p class="tips">Consejo: Invierte en velocidad para maximizar su potencial.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Globin ingeniero con llave inglesa]</div>
+                    <h3>Chispix el Reparador</h3>
+                    <p>Tipo mecánico. Excelente para absorber daño masivo y reiniciarse.</p>
+                    <p class="obten">Cómo conseguirla: Fabricada por ingeniería con componentes de Mechagon.</p>
+                    <p class="tips">Consejo: Activa su escudo antes de habilidades de área.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Pequeña abominación con costuras]</div>
+                    <h3>Horror Puntadafétida</h3>
+                    <p>Tipo no-muerto. Aterrador en combates prolongados gracias a su renacimiento.</p>
+                    <p class="obten">Cómo conseguirla: Banda Ciudadela de Corona de Hielo, modo heroico.</p>
+                    <p class="tips">Consejo: Combínalo con efectos de infección para debilitar al rival.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Tortuga marina con runas acuáticas]</div>
+                    <h3>Arúspice de Mareas</h3>
+                    <p>Tipo acuático. Maestro del control de velocidad y drenaje de vida.</p>
+                    <p class="obten">Cómo conseguirla: Pesca con cebo especial en Nazjatar.</p>
+                    <p class="tips">Consejo: Usa ralentizaciones para dominar a los voladores.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Felino espectral brillando en azul]</div>
+                    <h3>Sombra de Sabrestrella</h3>
+                    <p>Tipo bestia. Alta evasión y daño crítico mejorado.</p>
+                    <p class="obten">Cómo conseguirla: Misiones del Sueño Esmeralda en Dragonflight.</p>
+                    <p class="tips">Consejo: Aplica sangrados antes de rematar.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Pequeño androide del Kirin Tor]</div>
+                    <h3>Archivista Relojinte</h3>
+                    <p>Tipo mágico. Destaca por sus hechizos de control y reflejo.</p>
+                    <p class="obten">Cómo conseguirla: Recompensa de reputación Exaltado con Kirin Tor Resurgido.</p>
+                    <p class="tips">Consejo: Reacciona al tipo enemigo copiando sus habilidades clave.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Pequeño yeti cubierto de nieve]</div>
+                    <h3>Yeti Invernal Juvenil</h3>
+                    <p>Tipo elemental. Controla la temperatura para ralentizar enemigos.</p>
+                    <p class="obten">Cómo conseguirla: Evento estacional Festival de Invierno.</p>
+                    <p class="tips">Consejo: Alterna habilidades de hielo con golpes físicos.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Whelpling de bronce en espiral temporal]</div>
+                    <h3>Protovermis Temporal</h3>
+                    <p>Tipo dragón. Manipula el tiempo para mejorar curas y daño a futuro.</p>
+                    <p class="obten">Cómo conseguirla: Campañas de las Cavernas de los Vuelos Temporales.</p>
+                    <p class="tips">Consejo: Controla los turnos para evitar golpes letales.</p>
+                </article>
+                <article class="pet-card">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Zorro vulpera con adornos tribales]</div>
+                    <h3>Vulpin Mensajero</h3>
+                    <p>Tipo bestia. Sorprende con altísima velocidad inicial.</p>
+                    <p class="obten">Cómo conseguirla: Misión de campaña principal en Vol'dun.</p>
+                    <p class="tips">Consejo: Utiliza su velocidad para interrumpir acciones clave.</p>
+                </article>
+            </div>
+            <aside class="pet-questions">
+                <h4>¿Necesitas ayuda para elegir?</h4>
+                <p>Selecciona una opción para recibir recomendaciones personalizadas:</p>
+                <ul>
+                    <li><button type="button">Quiero mascotas fáciles de obtener</button></li>
+                    <li><button type="button">Busco mascotas raras para presumir</button></li>
+                    <li><button type="button">Necesito un equipo para incursiones PVE</button></li>
+                    <li><button type="button">Quiero ganar en duelos PVP</button></li>
+                </ul>
+            </aside>
+        </section>
+
+        <section id="batallas" class="section section--dark">
+            <div class="section__header">
+                <h2>Guía de batallas de mascotas</h2>
+                <p>Domina la tabla de fortalezas y debilidades, comprende los tipos y arma composiciones equilibradas.</p>
+            </div>
+            <div class="battle-guide">
+                <div class="battle-guide__intro">
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Arena de batalla de mascotas con público gnomo]</div>
+                    <p>Las batallas de mascotas funcionan como un juego de estrategia por turnos. Cada tipo gana ventaja sobre otro, pero también sufre debilidades. Consulta la tabla interactiva y descubre combinaciones letales.</p>
+                </div>
+                <div class="battle-guide__table">
+                    <h3>Tabla de tipos, fortalezas y debilidades</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Fuerte contra</th>
+                                <th>Débil contra</th>
+                                <th>Consejo táctico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bestia</td>
+                                <td>Humanoide</td>
+                                <td>Mecánico</td>
+                                <td>Usa bonificaciones de daño cuando tu salud sea baja.</td>
+                            </tr>
+                            <tr>
+                                <td>Humanoide</td>
+                                <td>Dragón</td>
+                                <td>Bestia</td>
+                                <td>Aprovecha la curación pasiva tras cada turno exitoso.</td>
+                            </tr>
+                            <tr>
+                                <td>Dragón</td>
+                                <td>Volador</td>
+                                <td>No-muerto</td>
+                                <td>Combina ataques de aliento con efectos de daño persistente.</td>
+                            </tr>
+                            <tr>
+                                <td>No-muerto</td>
+                                <td>Humanoide</td>
+                                <td>Acuático</td>
+                                <td>Recuerda que se levantan una vez más incluso tras caer.</td>
+                            </tr>
+                            <tr>
+                                <td>Mecánico</td>
+                                <td>Bestia</td>
+                                <td>Elemental</td>
+                                <td>Sinergiza con escudos y habilidades de reinicio.</td>
+                            </tr>
+                            <tr>
+                                <td>Elemental</td>
+                                <td>Mecánico</td>
+                                <td>Criatura mágica</td>
+                                <td>Ignora climatología adversa y controla zonas ardientes.</td>
+                            </tr>
+                            <tr>
+                                <td>Acuático</td>
+                                <td>Elemental</td>
+                                <td>Volador</td>
+                                <td>Aplica ralentizaciones y habilidades de drenado.</td>
+                            </tr>
+                            <tr>
+                                <td>Volador</td>
+                                <td>Acuático</td>
+                                <td>Dragón</td>
+                                <td>Conserva la velocidad alta manteniendo la salud elevada.</td>
+                            </tr>
+                            <tr>
+                                <td>Mágico</td>
+                                <td>Volador</td>
+                                <td>Dragón</td>
+                                <td>Reduce daños máximos recibidos: ideal contra golpes fuertes.</td>
+                            </tr>
+                            <tr>
+                                <td>Criatura feérica</td>
+                                <td>Oscuridad, No-muerto</td>
+                                <td>Elemental</td>
+                                <td>Alterna encantamientos de control y daño periódico.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="battle-guide__tips">
+                    <h3>Simulador de decisiones rápidas</h3>
+                    <p>Pregunta interactiva: <strong>¿Qué tipo de mascota te causa más problemas?</strong></p>
+                    <div class="options">
+                        <button type="button">Los elementales me superan</button>
+                        <button type="button">Las bestias me desarman</button>
+                        <button type="button">Los mecánicos son inmortales</button>
+                    </div>
+                    <p>Pista contextual: selecciona una opción para recibir una sugerencia automática de composición recomendada.</p>
+                    <details>
+                        <summary>Consejo maestro: cadenas de control</summary>
+                        <p>Combina mascotas con habilidades de aturdimiento, ralentización y daño en el tiempo para bloquear turnos del enemigo. No olvides llevar una mascota de soporte con curas.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="consejos" class="section">
+            <div class="section__header">
+                <h2>Consejos estratégicos</h2>
+                <p>Aprende trucos avanzados para optimizar tu establo de mascotas, acelerar el leveo y dominar los torneos.</p>
+            </div>
+            <div class="tips-grid">
+                <article>
+                    <h3>Ruta de leveo exprés</h3>
+                    <p>Alterna misiones diarias con piedras de entrenamiento. Mantén un equipo de experiencia compartida para aprovechar los bonus de fin de semana.</p>
+                </article>
+                <article>
+                    <h3>Gestión de establo</h3>
+                    <p>Usa etiquetas y favoritos para clasificar por función: daño, soporte, control. Así podrás crear escuadras rápidas desde la UI del juego.</p>
+                </article>
+                <article>
+                    <h3>Economía de mascotas</h3>
+                    <p>Identifica mascotas comerciables con alta demanda (como Mini Diablillo de Zepeto). Compra barato en tu AH y revende en reinos conectados.</p>
+                </article>
+                <article>
+                    <h3>Torneos Celestiales</h3>
+                    <p>Prepara equipos específicos para cada Celestial. Practica con sparring para evitar sorpresas en el escenario real.</p>
+                </article>
+            </div>
+            <div class="tips-interactive">
+                <p>¿Prefieres recibir recordatorios semanales sobre eventos de mascotas?</p>
+                <div class="options">
+                    <button type="button">Sí, avisadme antes de los eventos</button>
+                    <button type="button">No, ya estoy al día</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section section--light">
+            <div class="section__header">
+                <h2>Preguntas frecuentes</h2>
+                <p>Resuelve tus dudas más habituales sobre la gestión y las batallas de mascotas en World of Warcraft.</p>
+            </div>
+            <div class="faq-list">
+                <details>
+                    <summary>¿Cómo actualizo mi lista de mascotas tras conseguir una nueva?</summary>
+                    <p>Pulsa el botón "Sincronizar colección" junto a los resultados. La web conectará con la API oficial de Blizzard y actualizará tu establo en segundos.</p>
+                </details>
+                <details>
+                    <summary>¿Qué ocurre si mi personaje es de la Alianza y juego en un reino conectado?</summary>
+                    <p>Selecciona el reino principal donde creaste el personaje. Detectaremos automáticamente los reinos conectados para garantizar los datos correctos.</p>
+                </details>
+                <details>
+                    <summary>¿Puedo comparar mis mascotas con las de un amigo?</summary>
+                    <p>Sí. Usa la opción "Añadir comparación" y escribe el nombre y reino de tu amigo. Verás coincidencias y diferencias descritas con iconos intuitivos.</p>
+                </details>
+                <details>
+                    <summary>¿Ofrecéis alertas de apareamiento de mascotas salvajes?</summary>
+                    <p>Activa las notificaciones en tu panel de usuario. Te avisaremos cuando un grupo de mascotas raras aparezca en tu zona favorita.</p>
+                </details>
+            </div>
+            <aside class="faq-help">
+                <h3>¿No encuentras la respuesta?</h3>
+                <p>Envíanos tu pregunta con los detalles del reino y tipo de mascota. Te responderemos en menos de 24 horas.</p>
+                <button type="button">Enviar nueva pregunta</button>
+            </aside>
+        </section>
+
+        <section id="contacto" class="section section--footer">
+            <div class="section__header">
+                <h2>Contacto y comunidad</h2>
+                <p>Forma parte de nuestra hermandad de entrenadores. Comparte tus victorias, trucos y colecciones únicas.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="community">
+                    <h3>Únete al salón de la fama</h3>
+                    <p>Sube capturas de tus mejores mascotas y presume de ellas en nuestro mural interactivo.</p>
+                    <div class="image-placeholder">[IMAGEN_PLACEHOLDER: Galería de mascotas brillantes en un salón]</div>
+                </div>
+                <form class="contact-form" aria-label="Formulario de contacto">
+                    <div class="form-field">
+                        <label for="email">Correo electrónico</label>
+                        <input id="email" type="email" placeholder="nombre@dominio.com" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" rows="4" placeholder="Cuéntanos qué necesitas"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="tema">Tema</label>
+                        <select id="tema">
+                            <option value="consulta">Consulta general</option>
+                            <option value="soporte">Soporte técnico</option>
+                            <option value="sugerencia">Sugerencia de mejora</option>
+                            <option value="alianzas">Propuestas de colaboración</option>
+                        </select>
+                    </div>
+                    <div class="form-field form-field--actions">
+                        <button type="submit">Enviar mensaje</button>
+                    </div>
+                    <p class="contact-help">Nota: Responderemos en el mismo día laborable. Consulta también nuestro servidor de Discord para apoyo inmediato.</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Maestros de Mascotas. Sitio de fans no oficial de World of Warcraft.</p>
+        <nav aria-label="Menú de pie de página">
+            <a href="#inicio">Volver al inicio</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
