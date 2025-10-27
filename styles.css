@@ -335,6 +335,49 @@ a:hover {
     border: 1px solid rgba(198, 155, 59, 0.25);
 }
 
+/* Asistente de duelos */
+.battle-assistant {
+    background: rgba(16, 22, 29, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(198, 155, 59, 0.25);
+    padding: 1.5rem;
+}
+
+.assistant-counter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.assistant-counter {
+    background: rgba(27, 39, 53, 0.55);
+    border: 1px solid rgba(198, 155, 59, 0.2);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.assistant-samples {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(198, 155, 59, 0.4);
+    background: rgba(198, 155, 59, 0.1);
+}
+
+.chip--type {
+    background: rgba(198, 155, 59, 0.18);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
 .faq-list {
     display: grid;
     gap: 1rem;

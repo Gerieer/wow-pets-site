@@ -22,6 +22,7 @@ Inicio | Buscar personaje | Mascotas | Batallas | Consejos | FAQ | Contacto
 - Preguntas interactivas, checkboxes, botones de ayuda contextual y avisos emergentes.
 - Placeholders `[IMAGEN_PLACEHOLDER: ...]` para indicar la temática visual de cada bloque.
 - Tabla accesible con fortalezas/debilidades por tipo de mascota.
+- Asistente de duelos: introduce el nombre o tipo de la mascota rival y obtén tipos de contra y ejemplos de mascotas recomendadas.
 
 ## Estructura de archivos
 
@@ -64,3 +65,4 @@ wow-pets-site/
 - Sustituir los placeholders por imágenes oficiales (respetando derechos de autor).
 - Conectar el formulario con la API de Blizzard para recuperar datos reales.
 - Añadir almacenamiento local para preferencias de usuario.
+- Ampliar el catálogo interno del Asistente de duelos y sincronizarlo con datos reales de la API.

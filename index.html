@@ -328,6 +328,42 @@
                         <p>Combina mascotas con habilidades de aturdimiento, ralentización y daño en el tiempo para bloquear turnos del enemigo. No olvides llevar una mascota de soporte con curas.</p>
                     </details>
                 </div>
+                <div id="asistente" class="battle-assistant">
+                    <h3>Asistente de duelos: encuentra contras</h3>
+                    <p>Escribe el nombre de la mascota rival y te sugeriremos tipos y ejemplos de mascotas eficaces para vencerla. Si no la encontramos, indica su tipo manualmente.</p>
+                    <form id="assistant-form" class="search-form" aria-label="Asistente de contras">
+                        <div class="form-field">
+                            <label for="petTarget">Nombre de la mascota rival</label>
+                            <input id="petTarget" name="petTarget" type="text" placeholder="Ej. Mini Ragnaros" autocomplete="off">
+                            <small class="help">Puedes probar con: Mini Ragnaros, Criadora Esmeralda, Chispix el Reparador, Horror Puntadafétida…</small>
+                        </div>
+                        <div class="form-field">
+                            <label for="petType">Tipo de la mascota rival (si lo sabes)</label>
+                            <select id="petType" name="petType">
+                                <option value="">Selecciona tipo (opcional)</option>
+                                <option value="bestia">Bestia</option>
+                                <option value="humanoide">Humanoide</option>
+                                <option value="dragón">Dragón</option>
+                                <option value="no-muerto">No-muerto</option>
+                                <option value="mecánico">Mecánico</option>
+                                <option value="elemental">Elemental</option>
+                                <option value="acuático">Acuático</option>
+                                <option value="volador">Volador</option>
+                                <option value="mágico">Mágico</option>
+                            </select>
+                            <small class="help">Si escribes el nombre exacto, intentaremos detectar el tipo automáticamente.</small>
+                        </div>
+                        <div class="form-field form-field--actions">
+                            <button type="submit">Sugerir contras</button>
+                            <button type="reset" class="button button--ghost">Limpiar</button>
+                        </div>
+                    </form>
+                    <div id="assistant-results" class="results" aria-live="polite" hidden>
+                        <h4>Recomendaciones de contra</h4>
+                        <div class="assistant-summary"></div>
+                        <div class="assistant-counters"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
