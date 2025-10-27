@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.querySelector(".navbar__toggle");
     const menu = document.getElementById("menu");
     const optionButtons = document.querySelectorAll(".options button, .pet-questions button, .results__filters button, .tips-interactive button");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             const selected = button.textContent?.trim();
             if (selected) {
-                showToast(`Opción seleccionada: ${selected}`);
+                showToast(`OpciÃ³n seleccionada: ${selected}`);
             }
         });
     });
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Asistente de duelos: datos y lógica ---
+    // --- Asistente de duelos: datos y lÃ³gica ---
     const petCatalog = buildPetCatalog();
     const typeCounters = buildTypeCounters();
 
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadExternalPetsDataset().then(dataset => {
         if (dataset && Array.isArray(dataset.pets)) {
             mergeExternalPets(petCatalog, dataset.pets);
-            replacePlaceholdersWithIcons(dataset.pets);
+            indexSpeciesIconsFromDataset(dataset.pets); replacePlaceholdersWithIcons(dataset.pets);
         }
     }).catch(() => {/* ignore */});
 
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!targetType) {
                 showAssistantResult(assistantResults, {
-                    title: "Necesitamos más datos",
+                    title: "Necesitamos mÃ¡s datos",
                     html: `<p>No hemos podido identificar el tipo. Indica el <strong>tipo de la mascota</strong> en el desplegable o escribe un <strong>nombre conocido</strong>.</p>`
                 });
                 return;
@@ -152,25 +152,25 @@ function normalizeKey(s) {
 }
 
 function buildPetCatalog() {
-    // Catálogo de ejemplo con nombres mostrados en la web
+    // CatÃ¡logo de ejemplo con nombres mostrados en la web
     const items = [
         { name: "Mini Ragnaros", type: "elemental" },
         { name: "Zergling Aplastante", type: "bestia" },
-        { name: "Aracnobot Trucado", type: "mecánico" },
-        { name: "Criadora Esmeralda", type: "dragón" },
-        { name: "Múrloc Caballero", type: "humanoide" },
-        { name: "Fénix de Fuego Solar", type: "elemental" },
-        { name: "Chispix el Reparador", type: "mecánico" },
-        { name: "Horror Puntadafétida", type: "no-muerto" },
-        { name: "Arúspice de Mareas", type: "acuático" },
+        { name: "Aracnobot Trucado", type: "mecÃ¡nico" },
+        { name: "Criadora Esmeralda", type: "dragÃ³n" },
+        { name: "MÃºrloc Caballero", type: "humanoide" },
+        { name: "FÃ©nix de Fuego Solar", type: "elemental" },
+        { name: "Chispix el Reparador", type: "mecÃ¡nico" },
+        { name: "Horror PuntadafÃ©tida", type: "no-muerto" },
+        { name: "ArÃºspice de Mareas", type: "acuÃ¡tico" },
         { name: "Sombra de Sabrestrella", type: "bestia" },
-        { name: "Archivista Relojinte", type: "mágico" },
+        { name: "Archivista Relojinte", type: "mÃ¡gico" },
         { name: "Yeti Invernal Juvenil", type: "elemental" },
-        { name: "Protovermis Temporal", type: "dragón" },
+        { name: "Protovermis Temporal", type: "dragÃ³n" },
         { name: "Vulpin Mensajero", type: "bestia" },
         // Ejemplos adicionales por tipo para recomendaciones
-        { name: "Halcón Ventoligero", type: "volador" },
-        { name: "Búho de la Luna", type: "volador" }
+        { name: "HalcÃ³n Ventoligero", type: "volador" },
+        { name: "BÃºho de la Luna", type: "volador" }
     ];
     const dict = {};
     items.forEach(p => { dict[normalizeKey(p.name)] = p; });
@@ -178,17 +178,17 @@ function buildPetCatalog() {
 }
 
 function buildTypeCounters() {
-    // Matriz simple basada en la guía de esta página (modelo simplificado)
+    // Matriz simple basada en la guÃ­a de esta pÃ¡gina (modelo simplificado)
     return {
-        "bestia": ["mecánico"],
+        "bestia": ["mecÃ¡nico"],
         "humanoide": ["bestia", "no-muerto"],
-        "dragón": ["humanoide"],
-        "no-muerto": ["acuático"],
-        "mecánico": ["elemental"],
-        "elemental": ["mágico"],
-        "acuático": ["volador"],
-        "volador": ["dragón"],
-        "mágico": ["dragón"]
+        "dragÃ³n": ["humanoide"],
+        "no-muerto": ["acuÃ¡tico"],
+        "mecÃ¡nico": ["elemental"],
+        "elemental": ["mÃ¡gico"],
+        "acuÃ¡tico": ["volador"],
+        "volador": ["dragÃ³n"],
+        "mÃ¡gico": ["dragÃ³n"]
     };
 }
 
@@ -207,13 +207,13 @@ function labelForType(type) {
     const map = {
         "bestia": "Bestia",
         "humanoide": "Humanoide",
-        "dragón": "Dragón",
+        "dragÃ³n": "DragÃ³n",
         "no-muerto": "No-muerto",
-        "mecánico": "Mecánico",
+        "mecÃ¡nico": "MecÃ¡nico",
         "elemental": "Elemental",
-        "acuático": "Acuático",
+        "acuÃ¡tico": "AcuÃ¡tico",
         "volador": "Volador",
-        "mágico": "Mágico"
+        "mÃ¡gico": "MÃ¡gico"
     };
     return map[type] || type;
 }
@@ -221,17 +221,17 @@ function labelForType(type) {
 function iconForType(type) {
     // Iconos sencillos con emojis como marcador visual
     const map = {
-        "bestia": "🐾",
-        "humanoide": "🛡️",
-        "dragón": "🐉",
-        "no-muerto": "💀",
-        "mecánico": "⚙️",
-        "elemental": "🔥",
-        "acuático": "🌊",
-        "volador": "🪽",
-        "mágico": "✨"
+        "bestia": "ðŸ¾",
+        "humanoide": "ðŸ›¡ï¸",
+        "dragÃ³n": "ðŸ‰",
+        "no-muerto": "ðŸ’€",
+        "mecÃ¡nico": "âš™ï¸",
+        "elemental": "ðŸ”¥",
+        "acuÃ¡tico": "ðŸŒŠ",
+        "volador": "ðŸª½",
+        "mÃ¡gico": "âœ¨"
     };
-    return map[type] || "⚔️";
+    return map[type] || "âš”ï¸";
 }
 
 function showAssistantResult(container, { title, html }) {
@@ -318,3 +318,185 @@ function updateSuggestions(query, catalog, container) {
         });
     });
 }
+
+
+// speciesId -> iconUrl indexed from data/pets.json
+const speciesIconById = new Map();
+function indexSpeciesIconsFromDataset(externalPets) {
+  try {
+    if (!Array.isArray(externalPets)) return;
+    for (const p of externalPets) {
+      if (p && typeof p.id === 'number' && p.icon) {
+        speciesIconById.set(p.id, p.icon);
+      }
+    }
+  } catch {}
+}
+
+(function setupCharacterLookup(){
+  const btn = document.getElementById('btnConnectBnet');
+  if (!btn) return;
+
+  const API_BASE = window.WOW_API_BASE || 'https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions';
+
+  btn.addEventListener('click', () => {
+    const nombre = document.getElementById('nombre');
+    const reino = document.getElementById('reino');
+    const regionSel = document.getElementById('region');
+
+    const characterName = nombre ? (nombre.value || '').trim() : '';
+    let realmSlug = document.getElementById('realmSlug') ? document.getElementById('realmSlug').value.trim() : '';
+    if (!realmSlug && reino) realmSlug = toRealmSlug(reino.value || '');
+    const region = (regionSel ? regionSel.value : 'EU').toLowerCase();
+    const origin = window.location.origin;
+
+    const url = new URL(${API_BASE}/oauth-start);
+    if (realmSlug) url.searchParams.set('realmSlug', realmSlug);
+    if (characterName) url.searchParams.set('characterName', characterName);
+    url.searchParams.set('region', region);
+    url.searchParams.set('origin', origin);
+
+    const w = 520, h = 700;
+    const left = (window.screen.width - w) / 2;
+    const top = (window.screen.height - h) / 2;
+    const popup = window.open(url.toString(), 'wowPetsAuth', width=,height=,left=,top=);
+
+    window.addEventListener('message', onAuthMessage, { once: true });
+
+    // safety: close listener if popup closed without message
+    const t = setInterval(() => { try { if (popup && popup.closed) { window.removeEventListener('message', onAuthMessage); clearInterval(t); } } catch {} }, 1000);
+  });
+
+  function onAuthMessage(ev) {
+    try {
+      if (!ev || !ev.data || ev.data.type !== 'wowPetsAuth') return;
+      const data = ev.data.data;
+      const container = document.getElementById('characterPets');
+      if (!container) return;
+
+      if (!data || !data.ok) {
+        container.innerHTML = <p class="error">Error: </p>;
+        return;
+      }
+
+      const pets = Array.isArray(data.pets) ? data.pets : [];
+      const region = (data.region || 'eu').toLowerCase();
+
+      if (pets.length === 0) {
+        container.innerHTML = <p>No se encontraron mascotas en la colección.</p>;
+        return;
+      }
+
+      const items = pets.slice(0, 200).map(p => {
+        const nm = escapeHtml(p.name || #);
+        const iconUrl = (p.speciesId && speciesIconById.get(p.speciesId)) || '';
+        const img = iconUrl
+          ? <img class="pet-thumb" src="" alt="Icono " loading="lazy" />
+          : <span class="pet-thumb" aria-hidden="true" style="display:inline-block;text-align:center;line-height:36px;"></span>;
+        const lvl = p.level ?  (nivel ) : '';
+        const q = p.quality ?  -  : '';
+        return <li><span class="pet-meta"></span></li>;
+      }).join('');
+
+      container.innerHTML = 
+        <h3>Mascotas de  @ </h3>
+        <p>Total: </p>
+        <ul class="character-pet-list"></ul>
+      ;
+    } catch {}
+  }
+
+  function toRealmSlug(s) {
+    return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+})();
+
+// speciesId -> iconUrl indexed from data/pets.json
+const speciesIconById = new Map();
+function indexSpeciesIconsFromDataset(externalPets) {
+  try {
+    if (!Array.isArray(externalPets)) return;
+    for (const p of externalPets) {
+      if (p && typeof p.id === 'number' && p.icon) {
+        speciesIconById.set(p.id, p.icon);
+      }
+    }
+  } catch {}
+}
+
+(function setupCharacterLookup(){
+  const btn = document.getElementById('btnConnectBnet');
+  if (!btn) return;
+
+  const API_BASE = window.WOW_API_BASE || 'https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions';
+
+  btn.addEventListener('click', () => {
+    const nombre = document.getElementById('nombre');
+    const reino = document.getElementById('reino');
+    const regionSel = document.getElementById('region');
+
+    const characterName = nombre ? (nombre.value || '').trim() : '';
+    let realmSlug = document.getElementById('realmSlug') ? document.getElementById('realmSlug').value.trim() : '';
+    if (!realmSlug && reino) realmSlug = toRealmSlug(reino.value || '');
+    const region = (regionSel ? regionSel.value : 'EU').toLowerCase();
+    const origin = window.location.origin;
+
+    const url = new URL(${API_BASE}/oauth-start);
+    if (realmSlug) url.searchParams.set('realmSlug', realmSlug);
+    if (characterName) url.searchParams.set('characterName', characterName);
+    url.searchParams.set('region', region);
+    url.searchParams.set('origin', origin);
+
+    const w = 520, h = 700;
+    const left = (window.screen.width - w) / 2;
+    const top = (window.screen.height - h) / 2;
+    const popup = window.open(url.toString(), 'wowPetsAuth', width=,height=,left=,top=);
+
+    window.addEventListener('message', onAuthMessage, { once: true });
+
+    const t = setInterval(() => { try { if (popup && popup.closed) { window.removeEventListener('message', onAuthMessage); clearInterval(t); } } catch {} }, 1000);
+  });
+
+  function onAuthMessage(ev) {
+    try {
+      if (!ev || !ev.data || ev.data.type !== 'wowPetsAuth') return;
+      const data = ev.data.data;
+      const container = document.getElementById('characterPets');
+      if (!container) return;
+
+      if (!data || !data.ok) {
+        container.innerHTML = <p class="error">Error: </p>;
+        return;
+      }
+
+      const pets = Array.isArray(data.pets) ? data.pets : [];
+      const region = (data.region || 'eu').toLowerCase();
+
+      if (pets.length === 0) {
+        container.innerHTML = <p>No se encontraron mascotas en la colección.</p>;
+        return;
+      }
+
+      const items = pets.slice(0, 200).map(p => {
+        const nm = escapeHtml(p.name || #);
+        const iconUrl = (p.speciesId && speciesIconById.get(p.speciesId)) || '';
+        const img = iconUrl
+          ? <img class="pet-thumb" src="" alt="Icono " loading="lazy" />
+          : <span class="pet-thumb" aria-hidden="true" style="display:inline-block;text-align:center;line-height:36px;"></span>;
+        const lvl = p.level ?  (nivel ) : '';
+        const q = p.quality ?  -  : '';
+        return <li><span class="pet-meta"></span></li>;
+      }).join('');
+
+      container.innerHTML = 
+        <h3>Mascotas de  @ </h3>
+        <p>Total: </p>
+        <ul class="character-pet-list"></ul>
+      ;
+    } catch {}
+  }
+
+  function toRealmSlug(s) {
+    return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+})();

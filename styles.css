@@ -527,3 +527,18 @@ a:hover {
     opacity: 1;
     transform: translateY(0);
 }
+/* Miniaturas de mascotas del personaje */
+.pet-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 8px;
+  background: #1c1c1c;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.character-pet-list { list-style: none; padding-left: 0; margin: 0.5rem 0 0; }
+.character-pet-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.character-pet-list li:last-child { border-bottom: none; }
+.pet-meta { color: rgba(255,255,255,0.8); font-size: 0.9rem; }
