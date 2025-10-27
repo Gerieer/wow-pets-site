@@ -60,6 +60,21 @@ wow-pets-site/
    ```
 5. Activa GitHub Pages en la pestaña **Settings > Pages** seleccionando la rama `main` y raíz (`/`).
 
+### Datos en vivo desde Blizzard (oficial)
+
+Este proyecto puede preconstruir un dataset de mascotas usando la API oficial de Blizzard durante el despliegue (sin exponer secretos en el navegador).
+
+1. Crea dos secretos en tu repositorio de GitHub (Settings > Secrets and variables > Actions > New repository secret):
+   - `BLIZZARD_CLIENT_ID`
+   - `BLIZZARD_CLIENT_SECRET`
+   Puedes obtenerlos en https://develop.battle.net/ registrando una aplicación.
+2. El workflow de Pages ejecutará `npm run fetch:pets` y generará `data/pets.json` con los campos: id, name, type, icon.
+3. La web usará este JSON para:
+   - Autocompletar en el Asistente de duelos (lista desplegable mientras escribes).
+   - Mostrar iconos oficiales en tarjetas cuando haya coincidencia por nombre.
+
+Si los secretos no están presentes, la web se publica igual sin dataset (el autocompletado mostrará un aviso y se ocultará la lista).
+
 ## Próximos pasos sugeridos
 
 - Sustituir los placeholders por imágenes oficiales (respetando derechos de autor).

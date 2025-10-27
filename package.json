@@ -1,0 +1,9 @@
+{
+  "name": "wow-pets-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch:pets": "node scripts/fetch_blizzard_pets.mjs"
+  }
+}

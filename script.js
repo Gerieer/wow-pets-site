@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultsSection = document.querySelector(".results");
     const assistantForm = document.getElementById("assistant-form");
     const assistantResults = document.getElementById("assistant-results");
+    const petTargetInput = document.getElementById("petTarget");
+    const suggestionsEl = document.getElementById("assistant-suggestions");
 
     if (toggle && menu) {
         toggle.addEventListener("click", () => {
@@ -48,6 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Asistente de duelos: datos y lógica ---
     const petCatalog = buildPetCatalog();
     const typeCounters = buildTypeCounters();
+
+    // Try to load Blizzard dataset if available (built at deploy time)
+    loadExternalPetsDataset().then(dataset => {
+        if (dataset && Array.isArray(dataset.pets)) {
+            mergeExternalPets(petCatalog, dataset.pets);
+            replacePlaceholdersWithIcons(dataset.pets);
+        }
+    }).catch(() => {/* ignore */});
 
     if (assistantForm && assistantResults) {
         assistantForm.addEventListener("submit", e => {
@@ -110,7 +120,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         assistantForm.addEventListener("reset", () => {
             if (assistantResults) assistantResults.hidden = true;
+            if (suggestionsEl) suggestionsEl.hidden = true;
         });
+    }
+
+    // Typeahead suggestions
+    if (petTargetInput && suggestionsEl) {
+        petTargetInput.addEventListener("input", () => {
+            const q = petTargetInput.value.trim();
+            updateSuggestions(q, petCatalog, suggestionsEl);
+        });
+        petTargetInput.addEventListener("blur", () => setTimeout(() => suggestionsEl.hidden = true, 150));
     }
 });
 
@@ -230,4 +250,71 @@ function escapeHtml(str) {
         ">": "&gt;",
         '"': "&quot;"
     })[c]);
+}
+
+async function loadExternalPetsDataset() {
+    try {
+        const res = await fetch('data/pets.json', { cache: 'no-store' });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        return null;
+    }
+}
+
+function mergeExternalPets(catalog, pets) {
+    pets.forEach(p => {
+        if (!p || !p.name) return;
+        const key = normalizeKey(p.name);
+        if (!catalog[key]) {
+            catalog[key] = { name: p.name, type: p.type || '' };
+        } else if (!catalog[key].type && p.type) {
+            catalog[key].type = p.type;
+        }
+        if (p.icon) catalog[key].icon = p.icon;
+    });
+}
+
+function replacePlaceholdersWithIcons(pets) {
+    const map = new Map();
+    pets.forEach(p => map.set(normalizeKey(p.name), p.icon));
+    document.querySelectorAll('.image-placeholder[data-pet-name]').forEach(el => {
+        const name = el.getAttribute('data-pet-name');
+        const icon = name ? map.get(normalizeKey(name)) : null;
+        if (icon) {
+            el.innerHTML = `<img src="${icon}" alt="Icono de ${escapeHtml(name)}" />`;
+            el.classList.remove('image-placeholder');
+        }
+    });
+}
+
+function updateSuggestions(query, catalog, container) {
+    const q = normalizeKey(query);
+    if (!q) { container.hidden = true; container.innerHTML = ''; return; }
+    const all = Object.values(catalog);
+    const matches = [];
+    for (let i = 0; i < all.length; i++) {
+        const n = all[i].name;
+        if (normalizeKey(n).includes(q)) matches.push(all[i]);
+        if (matches.length >= 12) break;
+    }
+    if (!matches.length) { container.hidden = true; container.innerHTML = ''; return; }
+    container.innerHTML = matches.map(m => {
+        const icon = m.icon ? `<img src="${m.icon}" alt="" />` : '';
+        return `<div class="item" role="option" data-name="${escapeHtml(m.name)}">${icon}<span>${escapeHtml(m.name)}</span></div>`;
+    }).join('');
+    container.hidden = false;
+    container.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('mousedown', (ev) => {
+            ev.preventDefault();
+            const name = item.getAttribute('data-name');
+            const input = document.getElementById('petTarget');
+            if (input) input.value = name || '';
+            container.hidden = true;
+            // Auto detect type and fill select
+            const key = normalizeKey(name || '');
+            const sel = document.getElementById('petType');
+            if (sel && catalog[key] && catalog[key].type) sel.value = catalog[key].type;
+        });
+    });
 }
