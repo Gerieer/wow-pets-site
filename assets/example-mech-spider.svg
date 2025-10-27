@@ -1,0 +1,12 @@
+﻿<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'>
+  <rect width='100%' height='100%' fill='#10161d'/>
+  <g fill='none' stroke='#6dbcbe' stroke-width='3'>
+    <circle cx='200' cy='150' r='40'/>
+    <path d='M160 150 L100 120'/>
+    <path d='M160 150 L100 180'/>
+    <path d='M240 150 L300 120'/>
+    <path d='M240 150 L300 180'/>
+    <path d='M200 110 L200 70'/>
+    <path d='M200 190 L200 230'/>
+  </g>
+</svg>
