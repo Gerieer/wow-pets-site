@@ -364,13 +364,20 @@ function escapeHtml(str) {
 }
 
 async function loadExternalPetsDataset() {
-  try {
-    const res = await fetch("data/pets.json", { cache: "no-store" });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch (e) {
-    return null;
+  const candidates = [
+    "data/pets.json",
+    // Fallback to GitHub Pages artifact if not present in this host
+    "https://gerieer.github.io/wow-pets-site/data/pets.json",
+  ];
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (res && res.ok) {
+        return await res.json();
+      }
+    } catch (_) {}
   }
+  return null;
 }
 
 function mergeExternalPets(catalog, pets) {
