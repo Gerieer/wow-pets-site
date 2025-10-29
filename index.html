@@ -8,7 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <script>\n    (function(){\n      try {\n        if (location.hostname.endsWith(".netlify.app")) {\n          window.WOW_API_BASE = location.origin + "/.netlify/functions";\n        } else {\n          window.WOW_API_BASE = window.WOW_API_BASE || localStorage.getItem("WOW_API_BASE") || "https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions";\n        }\n      } catch(e) {}\n    })();\n  </script>\n</head>
+    <script>
+        (function(){
+            try {
+                if (location.hostname.endsWith(".netlify.app")) {
+                    window.WOW_API_BASE = location.origin + "/.netlify/functions";
+                } else {
+                    window.WOW_API_BASE = window.WOW_API_BASE || localStorage.getItem("WOW_API_BASE") || "https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions";
+                }
+            } catch(e) {}
+        })();
+    </script>
+</head>
 <body>
     <header class="hero" id="inicio">
         <nav class="navbar" aria-label="Menú principal">
@@ -480,6 +491,6 @@
         </nav>
     </footer>
 
-    <script src="script.js"></script>
+        <script src="app.js"></script>
 </body>
 </html>

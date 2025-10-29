@@ -11,28 +11,28 @@
       return { statusCode: 500, body: "Missing required env vars (BLIZZARD_CLIENT_ID, REDIRECT_URI)" };
     }
 
-    const url = new URL(event.rawUrl || https://);
+    const url = new URL(event.rawUrl);
     const realmSlug = url.searchParams.get("realmSlug") || "";
     const characterName = url.searchParams.get("characterName") || "";
     const region = (url.searchParams.get("region") || BLIZZARD_REGION).toLowerCase();
     const origin = url.searchParams.get("origin") || ALLOWED_ORIGIN;
 
-    const oauthHost = ${region}.battle.net;
+    const oauthHost = `${region}.battle.net`;
 
     const nonce = cryptoRandomString(24);
     const state = { n: nonce, origin, realmSlug, characterName, region };
     const stateEncoded = Buffer.from(JSON.stringify(state)).toString("base64url");
 
     const cookie = [
-      wow_state_nonce=,
+      `wow_state_nonce=${nonce}`,
       "HttpOnly",
       "Secure",
       "SameSite=Lax",
       "Path=/",
-      Max-Age=600
+      "Max-Age=600"
     ].join("; ");
 
-    const authorizeUrl = new URL(https:///oauth/authorize);
+    const authorizeUrl = new URL(`https://${oauthHost}/oauth/authorize`);
     authorizeUrl.searchParams.set("response_type", "code");
     authorizeUrl.searchParams.set("client_id", BLIZZARD_CLIENT_ID);
     authorizeUrl.searchParams.set("redirect_uri", REDIRECT_URI);
@@ -49,7 +49,7 @@
       body: ""
     };
   } catch (err) {
-    return { statusCode: 500, body: oauth-start error:  };
+    return { statusCode: 500, body: `oauth-start error: ${err && err.message ? err.message : String(err)}` };
   }
 };
 
