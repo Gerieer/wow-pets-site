@@ -14,7 +14,7 @@
                 if (location.hostname.endsWith(".netlify.app")) {
                     window.WOW_API_BASE = location.origin + "/.netlify/functions";
                 } else {
-                    window.WOW_API_BASE = window.WOW_API_BASE || localStorage.getItem("WOW_API_BASE") || "https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions";
+                    window.WOW_API_BASE = window.WOW_API_BASE || localStorage.getItem("WOW_API_BASE") || "https://wow-pets.netlify.app/.netlify/functions";
                 }
             } catch(e) {}
         })();
@@ -491,6 +491,6 @@
         </nav>
     </footer>
 
-        <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 </html>

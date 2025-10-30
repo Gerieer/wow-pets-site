@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (dataset && Array.isArray(dataset.pets)) {
         mergeExternalPets(petCatalog, dataset.pets);
         indexSpeciesIconsFromDataset(dataset.pets);
-        replacePlaceholdersWithIcons(dataset.pets);
+        replacePlaceholdersWithIcons(dataset.pets, petCatalog);
       }
     })
     .catch(() => {});
@@ -157,8 +157,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const nombre = document.getElementById("nombre");
       const reino = document.getElementById("reino");
       const regionSel = document.getElementById("region");
+      const characterNameAlt = document.getElementById("characterName");
 
-      const characterName = nombre ? (nombre.value || "").trim() : "";
+      // Prefer explicit input in the OAuth row if provided, else use the main form's name
+      const characterName = characterNameAlt && characterNameAlt.value
+        ? characterNameAlt.value.trim()
+        : (nombre ? (nombre.value || "").trim() : "");
       let realmSlug = document.getElementById("realmSlug")
         ? document.getElementById("realmSlug").value.trim()
         : "";
@@ -179,6 +183,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const top = Math.max(0, Math.floor((window.screen.height - h) / 2));
       const features = `width=${w},height=${h},left=${left},top=${top}`;
       const popup = window.open(url.toString(), "wowPetsAuth", features);
+      if (!popup) {
+        showToast("No se pudo abrir la ventana de autenticación. Desactiva el bloqueador de popups.");
+        return;
+      }
 
       window.addEventListener("message", onAuthMessage, { once: true });
 
@@ -397,12 +405,29 @@ function mergeExternalPets(catalog, pets) {
   });
 }
 
-function replacePlaceholdersWithIcons(pets) {
+function replacePlaceholdersWithIcons(pets, catalog) {
   const map = new Map();
   pets.forEach((p) => map.set(normalizeKey(p.name), p.icon));
   document.querySelectorAll('.image-placeholder[data-pet-name]').forEach((el) => {
     const name = el.getAttribute('data-pet-name');
-    const icon = name ? map.get(normalizeKey(name)) : null;
+    let icon = name ? map.get(normalizeKey(name)) : null;
+    if (!icon && catalog) {
+      const key = normalizeKey(name || "");
+      const entry = catalog[key];
+      const type = entry && entry.type ? entry.type : "";
+      const localByType = {
+        "elemental": "assets/example-lava.svg",
+        "bestia": "assets/example-swarm.svg",
+        "mecánico": "assets/example-mech-spider.svg",
+        "dragón": "assets/example-lava.svg",
+        "humanoide": "assets/example-swarm.svg",
+        "no-muerto": "assets/example-swarm.svg",
+        "acuático": "assets/example-swarm.svg",
+        "volador": "assets/example-swarm.svg",
+        "mágico": "assets/example-lava.svg",
+      };
+      if (type && localByType[type]) icon = localByType[type];
+    }
     if (icon) {
       el.innerHTML = `<img src=\"${icon}\" alt=\"Icono de ${escapeHtml(name)}\" />`;
       el.classList.remove('image-placeholder');
