@@ -4,18 +4,18 @@
       BLIZZARD_CLIENT_ID,
       REDIRECT_URI,
       BLIZZARD_REGION = "eu",
-      ALLOWED_ORIGIN = "https://gerieer.github.io"
+      ALLOWED_ORIGIN = "https://gerieer.github.io,https://wow-pets.netlify.app"
     } = process.env;
 
     if (!BLIZZARD_CLIENT_ID || !REDIRECT_URI) {
       return { statusCode: 500, body: "Missing required env vars (BLIZZARD_CLIENT_ID, REDIRECT_URI)" };
     }
 
-    const url = new URL(event.rawUrl);
+  const url = new URL(event.rawUrl);
     const realmSlug = url.searchParams.get("realmSlug") || "";
     const characterName = url.searchParams.get("characterName") || "";
     const region = (url.searchParams.get("region") || BLIZZARD_REGION).toLowerCase();
-    const origin = url.searchParams.get("origin") || ALLOWED_ORIGIN;
+  const origin = url.searchParams.get("origin") || ALLOWED_ORIGIN.split(",")[0];
 
     const oauthHost = `${region}.battle.net`;
 
@@ -32,10 +32,22 @@
       "Max-Age=600"
     ].join("; ");
 
+    // Determine redirect URI: env var preferred, otherwise compute from current function origin
+    const computedRedirect = (() => {
+      try {
+        const fnOrigin = new URL(event.rawUrl).origin;
+        return `${fnOrigin}/.netlify/functions/oauth-callback`;
+      } catch {
+        return undefined;
+      }
+    })();
+
+    const redirectUri = REDIRECT_URI || computedRedirect;
+
     const authorizeUrl = new URL(`https://${oauthHost}/oauth/authorize`);
     authorizeUrl.searchParams.set("response_type", "code");
     authorizeUrl.searchParams.set("client_id", BLIZZARD_CLIENT_ID);
-    authorizeUrl.searchParams.set("redirect_uri", REDIRECT_URI);
+    authorizeUrl.searchParams.set("redirect_uri", redirectUri);
     authorizeUrl.searchParams.set("scope", "wow.profile");
     authorizeUrl.searchParams.set("state", stateEncoded);
 

@@ -4,7 +4,7 @@
           BLIZZARD_CLIENT_ID,
           BLIZZARD_CLIENT_SECRET,
           BLIZZARD_LOCALE = "es_ES",
-          ALLOWED_ORIGIN = "https://gerieer.github.io",
+          ALLOWED_ORIGIN = "https://gerieer.github.io,https://wow-pets.netlify.app",
           REDIRECT_URI
         } = process.env;
 
@@ -27,8 +27,12 @@
         }
 
         const { origin, realmSlug, characterName } = state;
-        const ALLOWED = ALLOWED_ORIGIN;
-        if (origin !== ALLOWED && !String(origin).startsWith(ALLOWED)) {
+        const allowedList = String(ALLOWED_ORIGIN)
+          .split(",")
+          .map(s => s.trim())
+          .filter(Boolean);
+        const isAllowed = allowedList.some(a => origin === a || String(origin).startsWith(a));
+        if (!isAllowed) {
           return htmlError("Origen no permitido.");
         }
 
@@ -86,7 +90,7 @@
           payload.message = "Inicio de sesión completado. Indica reino y personaje para consultar mascotas.";
         }
 
-        return htmlPostMessage(origin, payload);
+  return htmlPostMessage(origin, payload);
       } catch (err) {
         return htmlError(`oauth-callback error: ${err && err.message ? err.message : String(err)}`);
       }

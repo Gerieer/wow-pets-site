@@ -364,11 +364,15 @@ function escapeHtml(str) {
 }
 
 async function loadExternalPetsDataset() {
+  const apiBase = (typeof window !== "undefined" && window.WOW_API_BASE) ? window.WOW_API_BASE : null;
   const candidates = [
+    // Same-host static
     "data/pets.json",
-    // Fallback to GitHub Pages artifact if not present in this host
+    // Netlify function (adds CORS and can proxy)
+    apiBase ? `${apiBase}/pets-dataset` : null,
+    // Fallback to GitHub Pages artifact (works on same-origin Pages; may be CORS blocked elsewhere)
     "https://gerieer.github.io/wow-pets-site/data/pets.json",
-  ];
+  ].filter(Boolean);
   for (const url of candidates) {
     try {
       const res = await fetch(url, { cache: "no-store" });
