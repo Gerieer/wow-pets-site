@@ -1,3 +1,18 @@
+[build]
+  command = "node scripts/fetch_blizzard_pets.mjs"
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/.netlify/functions/pets-dataset"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, OPTIONS"
+    Cache-Control = "public, max-age=600"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
